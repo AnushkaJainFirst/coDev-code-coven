@@ -1,31 +1,14 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
-const http = require("http");
-const cors = require("cors");
+const http = require("http");   
 const { Server } = require("socket.io");
 
 const ACTIONS = require("./utils/actions");
 
 app.use(express.json());
 
-app.use(cors({
-    origin: "https://co-dev-code-coven.vercel.app/",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-}));
-
 const server = http.createServer(app);
-
-const io = new Server(server, {
-    cors: {
-        origin: "https://co-dev-code-coven.vercel.app/",
-        methods: ["GET", "POST"],
-        allowedHeaders: ["Content-Type", "Authorization"],
-        credentials: true
-    }
-});
 
 const userSocketMap = {};
 
@@ -109,7 +92,7 @@ io.on("connection", (socket) => {
     });
 });
 
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
     res.send("API is running successfully");
